@@ -38,7 +38,7 @@ module.exports = appInfo => {
   config.ejs = {
     // delimiter: "$"
   }
-
+  // 配置静态文件目录和访问地址
   config.static = {
     prefix: "/assets/",
     dir: path.join(appInfo.baseDir, "app/assets")
