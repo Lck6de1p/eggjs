@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user</title>
+</head>
+<body>
+    <% include user-header.html %>
+    user page...
+    <br>
+    id: <%= id %>
+    <br>
+    <%# 这是一个注释%>
+    name: <%= name %>
+    <br>
+    <ul>
+        
+        <% for(var i = 0; i < lists.length; i++) { %>
+            <li> 
+                <%= lists[i] %> 
+            </li>
+        <% } %> 
+       
+    </ul>
+</body>
+</html>
