@@ -13,6 +13,11 @@ exports.ejs = {
 }
 
 exports.auth = {
-  enable: true,
+  enable: false,
   path: path.join(__dirname, '../lib/plugin/egg-auth')
+}
+
+exports.mysql = {
+  enable: true,
+  package: 'egg-mysql'
 }

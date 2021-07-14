@@ -9,7 +9,7 @@ class getInfo extends Subscription {
         }
     }
     async subscribe() {
-        console.log(Date.now(), 'ctx')
+        // console.log(Date.now(), 'ctx')
     }
 }
 

@@ -15,5 +15,5 @@ module.exports = app => {
 
     }
     // 添加自定义插件
-    app.config.coreMiddleware.push('auth')
+    // app.config.coreMiddleware.push('auth')
 }

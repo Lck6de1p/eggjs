@@ -50,6 +50,20 @@ module.exports = appInfo => {
     config.auth = {
         exclude: ['/home', '/user', '/login', 'logout']
     };
+
+    // egg-mysql配置
+    config.mysql = {
+        app: true,
+        agent: false,
+        client: {
+            host: '127.0.0.1',
+            port: '3306',
+            user: 'root',
+            password: 'admin',
+            database: 'egg'
+        }
+    };
+
     // add your user config here
     const userConfig = {
         // myAppName: 'egg',

@@ -50,13 +50,16 @@ class UserController extends Controller {
   }
 
   async lists() {
-    const { ctx } = this;
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 1500);
-    });
-    ctx.body = [{ id: 123 }];
+    const { ctx, app } = this;
+    // console.log(app.mysql)
+    // await new Promise(resolve => {
+    //   setTimeout(() => {
+    //     resolve();
+    //   }, 1500);
+    // });
+
+    const res = await ctx.service.user.lists();
+    ctx.body = res;
   }
 
   async detail() {
@@ -69,30 +72,40 @@ class UserController extends Controller {
   async detail2() {
     const { ctx } = this;
     console.log(ctx.params);
-    ctx.body = ctx.params.id;
+    const res = await ctx.service.user.detail2(ctx.params.id);
+    ctx.body = res;
   }
   async add() {
     const { ctx } = this;
     console.log(ctx.request.body);
-    const rule = {
-      name: { type: 'string' },
-      age: { type: 'number' },
-    };
-    ctx.validate(rule);
+    // const rule = {
+    //   name: { type: 'string' },
+    //   age: { type: 'number' },
+    // };
+    // ctx.validate(rule);
+    const res = await ctx.service.user.add(ctx.request.body);
     ctx.body = {
       status: 200,
-      data: ctx.request.body,
+      data: res,
     };
 
   }
 
   async edit() {
     const { ctx } = this;
-    ctx.body = ctx.request.body;
+    const res = await ctx.service.user.edit(ctx.request.body);
+    ctx.body = {
+      status: 200,
+      data: res,
+    };
   }
   async del() {
     const { ctx } = this;
-    ctx.body = ctx.request.body.id;
+    const res = await ctx.service.user.delete( ctx.request.body.id);
+    ctx.body = {
+      status: 200,
+      data: res,
+    };
   }
 }
 
