@@ -1,5 +1,6 @@
 logs/
 npm-debug.log
+httpLog.log
 yarn-error.log
 node_modules/
 package-lock.json

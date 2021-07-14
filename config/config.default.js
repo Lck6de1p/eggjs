@@ -46,8 +46,10 @@ module.exports = appInfo => {
         prefix: "/assets/",
         dir: path.join(appInfo.baseDir, "app/assets")
     }
-
-
+    // egg-auth配置
+    config.auth = {
+        exclude: ['/home', '/user', '/login', 'logout']
+    };
     // add your user config here
     const userConfig = {
         // myAppName: 'egg',
