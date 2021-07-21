@@ -4,6 +4,18 @@ const md5 = require('md5');
 const dayjs = require('dayjs')
 
 class UserController extends Controller {
+
+  async jwtSign() {
+    const { ctx, app } = this;
+    const username = ctx.request.body.username
+
+    const token = app.jwt.sign({
+      username
+    }, app.config.jwt.secret)
+    ctx.session[username] = 1
+    return token;
+  }
+
   async register() {
     const { ctx, app } = this;
     const params = ctx.request.body;
@@ -15,18 +27,19 @@ class UserController extends Controller {
       }
       return
     }
-
     const result = await ctx.service.user.add({
       ...params,
       password: md5(params.password + app.config.salt),
       createTime: ctx.helper.time()
     });
     if (result) {
+      const token = await this.jwtSign()
       ctx.body = {
         status: 200,
         data: {
           ...ctx.helper.unPick(result.dataValues, ['password']),
-          createTime: ctx.helper.timestamp(result.createTime)
+          createTime: ctx.helper.timestamp(result.createTime),
+          token
         }
       }
     } else {
@@ -38,16 +51,17 @@ class UserController extends Controller {
   }
 
   async login() {
-    const { ctx } = this;
+    const { ctx, app } = this;
     const { username, password } = ctx.request.body;
     const user = await ctx.service.user.getUser(username, password);
     if (user) {
-      ctx.session.userId = user.userId
+      const token = await this.jwtSign()
       ctx.body = {
         status: 200,
         data: {
           ...ctx.helper.unPick(user.dataValues, ['password']),
-          createTime: ctx.helper.timestamp(user.createTime)
+          createTime: ctx.helper.timestamp(user.createTime),
+          token
         }
       }
     } else {
