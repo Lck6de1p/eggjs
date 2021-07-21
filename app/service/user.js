@@ -1,66 +1,30 @@
 'use strict';
 
 const Service = require('egg').Service;
+const md5 = require('md5');
 
 class UserService extends Service {
-  async lists() {
+  async getUser(username, password) {
     try {
-      const { app } = this;
-      const res = await app.mysql.select('user');
-      return res
+      const { ctx, app } = this;
+      const _where = password ? { username, password: md5(password + app.config.salt) } : { username }
+      const result = await ctx.model.User.findOne({
+        where: _where
+      })
+      return result;
     } catch (error) {
-      console.log(err)
-      return null;
-    }
-  }
-  async detail(id) {
-    return {
-      id,
-      name: 'john',
-      age: 18,
-    };
-  }
-
-  async detail2(id) {
-    try {
-      const { app } = this;
-      const res = await app.mysql.get('user', { id })
-      return res;
-    } catch (error) {
-      console.log(err)
+      console.log(error);
       return null
     }
   }
 
   async add(params) {
     try {
-      const { app } = this;
-      const res = await app.mysql.insert('user', params);
-      return res;
+      const { ctx } = this;
+      const result = await ctx.model.User.create(params)
+      return result;
     } catch (error) {
-      console.log(err)
-      return null;
-    }
-  }
-
-  async edit(params) {
-    try {
-      const { app } = this;
-      const res = await app.mysql.update('user', params);
-      return res;
-    } catch (error) {
-      console.log(res);
-      return null
-    }
-  }
-
-  async delete(id) {
-    try {
-      const { app } = this;
-      const res = await app.mysql.delete('user', {id});
-      return res;
-    } catch (error) {
-      console.log(res);
+      console.log(error);
       return null
     }
   }
