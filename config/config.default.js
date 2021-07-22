@@ -46,11 +46,18 @@ module.exports = appInfo => {
         prefix: "/assets/",
         dir: path.join(appInfo.baseDir, "app/assets")
     }
+
+    config.session = {
+        key: "LCK_SESS",
+        httpOnly: true,
+        maxAge: 1000 * 5,
+        renew: true
+    }
+
     // egg-auth配置
     config.auth = {
-        exclude: ['/home', '/user', '/login', 'logout']
+        exclude: ['/api/user/login', 'api/user/register']
     };
-
     // egg-mysql配置
     config.mysql = {
         app: true,

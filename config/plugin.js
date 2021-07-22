@@ -12,10 +12,10 @@ exports.ejs = {
   package: 'egg-view-ejs'
 }
 
-// exports.auth = {
-//   enable: false,
-//   path: path.join(__dirname, '../lib/plugin/egg-auth')
-// }
+exports.auth = {
+  enable: true,
+  path: path.join(__dirname, '../lib/plugin/egg-auth')
+}
 
 exports.mysql = {
   enable: true,
