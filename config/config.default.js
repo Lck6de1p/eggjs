@@ -87,10 +87,20 @@ module.exports = appInfo => {
     config.jwt = {
         secret: 'lck'
     }
+
+    config.redis = {
+        client: {
+            port: 6379,
+            host: '127.0.0.1',
+            password: '123456',
+            db: 0
+        }
+    }
     // add your user config here
     const userConfig = {
         // myAppName: 'egg',
-        salt: 'lck'
+        salt: 'lck',
+        redisExpire: 60 * 60 * 24
     };
     return {
         ...config,
