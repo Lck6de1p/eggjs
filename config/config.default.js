@@ -56,7 +56,7 @@ module.exports = appInfo => {
 
     // egg-auth配置
     config.auth = {
-        exclude: ['/api/user/login', 'api/user/register']
+        exclude: ['/api/user/login', '/api/user/register', '/api/commons/citys','/api/house/hot' ]
     };
     // egg-mysql配置
     config.mysql = {
