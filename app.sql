@@ -90,7 +90,7 @@ INSERT INTO `imgs` VALUES
 -- 订单表
 create table `orders`(
   `id` int not null auto_increment,
-  `order_number` varchar(20) default null comment '订单编号',
+  `orderNumber` varchar(20) default null comment '订单编号',
   `userId` int not null comment '用户id',
   `houseId` int not null comment '房屋id',
   `isPayed` int default 0 comment '是否支付，0未支付，1已支付',
