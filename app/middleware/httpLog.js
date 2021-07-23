@@ -18,7 +18,7 @@ module.exports = options => {
             timeLength: Date.now() - sTime
         }
         const data = dayjs(Date.now()).format("YYYY-MM-DD HH:mm:ss") + ' [httpLog]' + JSON.stringify(log) + '\r\n'
-        fs.appendFileSync(ctx.app.baseDir + '/httpLog.log', data)
+        fs.appendFileSync(ctx.app.baseDir + '/logs/httpLog.log', data)
         console.log(log)
     }
 }
