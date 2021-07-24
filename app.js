@@ -15,6 +15,12 @@ module.exports = app => {
 
     }
     // 添加自定义插件
-    app.config.coreMiddleware.push('notFound');
-    app.config.coreMiddleware.push('auth');
+    const mids = app.config.coreMiddleware;
+    app.config.coreMiddleware = [...mids, ...[
+        'interfaceLimit',
+        'allowHosts',
+        'notFound',
+        'auth',
+        'interfaceCache'
+    ]]
 }
