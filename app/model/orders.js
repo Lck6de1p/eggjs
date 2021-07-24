@@ -24,6 +24,10 @@ module.exports = app => {
             }
         }
     })
-    
+    Orders.associate = () => {
+        app.model.Orders.belongsTo(app.model.House, {
+            foreignKey: 'houseId', as: 'house'
+        });
+    }
     return Orders;
 }

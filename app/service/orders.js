@@ -27,6 +27,45 @@ class OrderService extends BaseService {
             return result;
         })
     }
+    async lists(params) {
+        return this.run(async (ctx, app) => {
+            const result = await ctx.model.Orders.findAll({
+                where: {
+                    isPayed: params.type,
+                    userId: params.userId
+                },
+                limit: params.pageSize,
+                offset: (params.pageNum - 1) * params.pageSize,
+                include: [
+                    {
+                        model: app.model.House,
+                        as: 'house',
+                        include: [
+                            {
+                                model: app.model.Imgs,
+                                attributes: ['url'],
+                                limit: 1
+                            }
+                        ]
+                    }
+                ]
+            })
+            return result
+        })
+    }
+    async pay(params) {
+        return this.run(async (ctx) => {
+            const result = await ctx.model.Orders.update({
+                isPayed: 1,
+                orderNumber: params.orderNumber
+            }, {
+                where: {
+                    id: params.id
+                }
+            })
+            return result;
+        })
+    }
 }
 
 module.exports = OrderService;
